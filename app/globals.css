@@ -6,19 +6,62 @@
   --font-space-grotesk: "Segoe UI", "Inter", "Arial", sans-serif;
 }
 
-* { scroll-behavior: smooth; }
+/* ============ THÈME CLAIR (par défaut) ============ */
+:root {
+  --ink: 11 37 69;                    /* #0B2545 */
+  --porcelain: 245 247 251;           /* #F5F7FB */
+  --brass: 37 99 235;                 /* #2563EB */
+  --brass-light: 96 165 250;          /* #60A5FA */
+  --steel: 71 85 105;                 /* #475569 */
+  --steel-light: 148 163 184;         /* #94A3B8 */
+  --schema: 6 182 212;                /* #06B6D4 */
+  --navy: 30 58 110;                  /* #1E3A6E */
+  --navy-dark: 6 21 43;               /* #06152B */
+  --electric: 37 99 235;              /* #2563EB */
+  --electric-light: 96 165 250;       /* #60A5FA */
+  --cyan: 6 182 212;                  /* #06B6D4 */
+  --surface: 255 255 255;             /* blanc pour cartes */
+  --electric-rgb: 37 99 235;
 
-/* FOND GLOBAL : bleu nuit + léger halo bleu en haut */
-body {
-  background-color: #0A1626;
-  background-image: radial-gradient(1200px 600px at 85% -10%, rgba(59, 130, 246, 0.12), transparent 60%);
-  background-attachment: fixed;
-  color: #EAF1FB;
+  --body-bg: 245 247 251;
+  --glass-bg: rgba(255, 255, 255, 0.75);
+  --grid-color: rgba(11, 37, 69, 0.05);
 }
 
-::selection { background-color: #3B82F6; color: #FFFFFF; }
+/* ============ THÈME SOMBRE ============ */
+.dark {
+  --ink: 234 241 251;                 /* #EAF1FB */
+  --porcelain: 13 27 48;              /* #0D1B30 */
+  --brass: 59 130 246;                /* #3B82F6 */
+  --brass-light: 125 176 251;         /* #7DB0FB */
+  --steel: 169 184 206;               /* #A9B8CE */
+  --steel-light: 126 144 171;         /* #7E90AB */
+  --schema: 34 211 238;               /* #22D3EE */
+  --navy: 18 54 95;                   /* #12365F */
+  --navy-dark: 6 15 28;               /* #060F1C */
+  --electric: 59 130 246;             /* #3B82F6 */
+  --electric-light: 125 176 251;      /* #7DB0FB */
+  --cyan: 34 211 238;                 /* #22D3EE */
+  --surface: 15 32 54;                /* #0F2036 */
+  --electric-rgb: 59 130 246;
 
-:focus-visible { outline: 2px solid #3B82F6; outline-offset: 3px; }
+  --body-bg: 10 22 38;
+  --glass-bg: rgba(10, 22, 38, 0.72);
+  --grid-color: rgba(255, 255, 255, 0.045);
+}
+
+* { scroll-behavior: smooth; }
+
+body {
+  background-color: rgb(var(--body-bg));
+  background-image: radial-gradient(1200px 600px at 85% -10%, rgba(var(--electric-rgb) / 0.12), transparent 60%);
+  background-attachment: fixed;
+  color: rgb(var(--ink));
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+::selection { background-color: rgb(var(--electric)); color: #FFFFFF; }
+:focus-visible { outline: 2px solid rgb(var(--electric)); outline-offset: 3px; }
 
 @media (prefers-reduced-motion: reduce) {
   * {
@@ -30,21 +73,20 @@ body {
 }
 
 /* ============ FONDS & EFFETS ============ */
-.grid-bg-dark {
+.grid-bg {
   background-image:
-    linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px);
+    linear-gradient(var(--grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
   background-size: 44px 44px;
 }
 .text-gradient {
-  background: linear-gradient(92deg, #93C5FD 0%, #3B82F6 55%, #22D3EE 100%);
+  background: linear-gradient(92deg, rgb(var(--electric-light)) 0%, rgb(var(--electric)) 55%, rgb(var(--cyan)) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
-/* Verre sombre pour le header */
-.glass-dark {
-  background: rgba(10, 22, 38, 0.72);
+.glass {
+  background: var(--glass-bg);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
 }
@@ -84,48 +126,43 @@ body {
 .node {
   transform-box: fill-box;
   transform-origin: center;
-  filter: drop-shadow(0 0 6px rgba(59, 130, 246, 0.9));
+  filter: drop-shadow(0 0 6px rgba(var(--electric-rgb) / 0.9));
   animation: nodePulse 2.6s ease-in-out infinite;
 }
 
-/* ============ CARTES SOMBRES ============ */
+/* ============ CARTES (s'adaptent au thème) ============ */
 .plate {
   position: relative;
-  background: #0F2036;
-  border: 1px solid rgba(125, 176, 251, 0.14);
+  background: rgb(var(--surface));
+  border: 1px solid rgba(var(--electric-rgb) / 0.14);
   border-radius: 1.25rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, background-color 0.4s ease;
+}
+.dark .plate {
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 .plate:hover {
   transform: translateY(-6px);
-  border-color: rgba(59, 130, 246, 0.5);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(59, 130, 246, 0.2);
+  border-color: rgba(var(--electric-rgb) / 0.5);
+  box-shadow: 0 20px 50px rgba(var(--electric-rgb) / 0.2);
 }
-.plate::before, .plate::after,
-.plate .rivet-tl, .plate .rivet-tr, .plate .rivet-bl, .plate .rivet-br { display: none; }
 
 .schema-card {
   position: relative;
-  border: 1.5px dashed rgba(34, 211, 238, 0.35);
+  border: 1.5px dashed rgba(var(--cyan-rgb, var(--electric-rgb)) / 0.35);
   border-radius: 1.25rem;
-  background:
-    repeating-linear-gradient(0deg, rgba(34,211,238,0.05) 0 1px, transparent 1px 24px),
-    repeating-linear-gradient(90deg, rgba(34,211,238,0.05) 0 1px, transparent 1px 24px),
-    rgba(34, 211, 238, 0.04);
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  background: rgb(var(--surface));
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, background-color 0.4s ease;
 }
 .schema-card:hover {
   transform: translateY(-6px);
-  border-color: rgba(34, 211, 238, 0.7);
-  box-shadow: 0 20px 50px rgba(34, 211, 238, 0.12);
+  border-color: rgba(var(--electric-rgb) / 0.7);
+  box-shadow: 0 20px 50px rgba(var(--electric-rgb) / 0.15);
 }
 
-.card-hover { transition: transform 0.3s ease, box-shadow 0.3s ease; }
-.card-hover:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35); }
-
 .underline-grow {
-  background-image: linear-gradient(#3B82F6, #3B82F6);
+  background-image: linear-gradient(rgb(var(--electric)), rgb(var(--electric)));
   background-repeat: no-repeat;
   background-position: 0 100%;
   background-size: 0% 1.5px;

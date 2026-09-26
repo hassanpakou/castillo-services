@@ -5,13 +5,13 @@ import Image from "next/image";
 import Reveal from "@/components/Reveal";
 import { useLang } from "@/context/LanguageContext";
 
-export default function HomePage() {
+export default function ClientHomePage() {
   const { t } = useLang();
 
   return (
     <>
       {/* ===== HERO ===== */}
-      <section className="relative overflow-hidden bg-navy-dark">
+      <section className="relative overflow-hidden bg-navy-dark text-white dark:text-ink">
         <div className="absolute inset-0 grid-bg" aria-hidden="true" />
         <div className="absolute -top-32 -right-24 w-[480px] h-[480px] rounded-full bg-electric/25 blur-[130px] animate-pulse-slow" aria-hidden="true" />
         <div className="absolute -bottom-40 -left-24 w-[380px] h-[380px] rounded-full bg-cyan/15 blur-[110px]" aria-hidden="true" />
@@ -23,13 +23,13 @@ export default function HomePage() {
               {t.hero.badge}
             </span>
             <h1
-              className="animate-fade-up mt-6 font-display font-bold text-4xl leading-[1.08] md:text-[3.5rem] md:leading-[1.05] text-white"
+              className="animate-fade-up mt-6 font-display font-bold text-4xl leading-[1.08] md:text-[3.5rem] md:leading-[1.05]"
               style={{ animationDelay: "100ms" }}
             >
               {t.hero.title1}<span className="text-gradient">{t.hero.titleGradient}</span>{t.hero.title2}
             </h1>
             <p
-              className="animate-fade-up mt-6 text-white/70 text-lg max-w-[48ch] leading-relaxed"
+              className="animate-fade-up mt-6 text-steel text-lg max-w-[48ch] leading-relaxed"
               style={{ animationDelay: "200ms" }}
             >
               {t.hero.description}
@@ -43,7 +43,7 @@ export default function HomePage() {
               </Link>
               <Link
                 href="/services"
-                className="px-7 py-3.5 rounded-full border border-white/20 text-white/80 hover:bg-white/10 hover:text-white transition-all duration-300"
+                className="px-7 py-3.5 rounded-full border border-steel-light/30 text-steel hover:bg-surface hover:text-ink transition-all duration-300"
               >
                 {t.hero.ctaSecondary}
               </Link>
@@ -51,27 +51,25 @@ export default function HomePage() {
             <dl className="animate-fade-up mt-12 grid grid-cols-3 gap-6 max-w-md" style={{ animationDelay: "400ms" }}>
               {t.hero.stats.map((s) => (
                 <div key={s.label}>
-                  <dt className="font-display text-2xl font-bold text-white">{s.value}</dt>
-                  <dd className="mt-1 text-xs text-white/50">{s.label}</dd>
+                  <dt className="font-display text-2xl font-bold text-white dark:text-ink">{s.value}</dt>
+                  <dd className="mt-1 text-xs text-steel">{s.label}</dd>
                 </div>
               ))}
             </dl>
           </div>
 
-          {/* Photo + Avatar + Logo */}
           <div className="relative animate-fade-up" style={{ animationDelay: "250ms" }}>
             <div className="absolute -inset-6 rounded-[2rem] bg-electric/20 blur-[80px] animate-pulse-slow" aria-hidden="true" />
             <div className="relative rounded-[2rem] overflow-hidden ring-1 ring-white/10 shadow-2xl animate-float">
               <Image
                 src="/PlaqueRdc.png"
-                alt="Plaque d'immatriculation RDC — Castillo Services"
+                alt="Plaque d'immatriculation RDC"
                 width={800}
                 height={900}
                 priority
                 className="w-full h-[420px] md:h-[500px] object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-navy-dark/90 via-navy-dark/20 to-transparent" aria-hidden="true" />
-
               <div className="absolute bottom-5 left-5 right-5 flex items-center gap-3 rounded-2xl bg-navy-dark/60 backdrop-blur-md ring-1 ring-white/10 px-4 py-3">
                 <Image
                   src="/catillo-valere.png"
@@ -99,7 +97,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ===== DEUX PILIERS ===== */}
+      {/* ===== PILIERS ===== */}
       <section className="relative border-y border-steel-light/10 bg-surface">
         <div className="absolute inset-0 grid-bg" aria-hidden="true" />
         <div className="relative max-w-content mx-auto px-6 md:px-10 py-16 md:py-24">
@@ -198,10 +196,10 @@ export default function HomePage() {
               className="h-20 w-auto md:h-28"
             />
           </span>
-          <h2 className="mt-8 font-display text-3xl md:text-4xl font-bold text-white">
+          <h2 className="mt-8 font-display text-3xl md:text-4xl font-bold text-ink">
             {t.brand.title1}<span className="text-gradient">{t.brand.titleGradient}</span>
           </h2>
-          <p className="mt-4 text-white/70 max-w-[52ch] leading-relaxed">{t.brand.description}</p>
+          <p className="mt-4 text-steel max-w-[52ch] leading-relaxed">{t.brand.description}</p>
         </Reveal>
       </section>
 
