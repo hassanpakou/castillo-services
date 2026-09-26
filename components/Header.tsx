@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { useLang } from "@/context/LanguageContext";
 import ThemeToggle from "@/components/ThemeToggle";
@@ -10,8 +10,16 @@ import LanguageToggle from "@/components/LanguageToggle";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const [isInstallable, setIsInstallable] = useState(false);
   const pathname = usePathname();
   const { t } = useLang();
+
+  // Hook pour détecter si le site est installable (PWA)
+  useEffect(() => {
+    const handler = () => setIsInstallable(true);
+    window.addEventListener("beforeinstallprompt", handler);
+    return () => window.removeEventListener("beforeinstallprompt", handler);
+  }, []);
 
   const NAV_LINKS = [
     { href: "/", label: t.nav.home },
@@ -25,7 +33,7 @@ export default function Header() {
       <div className="max-w-content mx-auto px-6 md:px-10 flex items-center justify-between h-20">
         <Link
           href="/"
-          className="flex items-center transition-transform duration-300 hover:scale-[1.04]"
+          className="flex items-center gap-2 transition-transform duration-300 hover:scale-[1.04]"
           onClick={() => setOpen(false)}
         >
           <span className="bg-white rounded-xl p-1.5 ring-1 ring-steel-light/20 shadow-glow-sm">
@@ -38,6 +46,14 @@ export default function Header() {
               className="h-9 w-auto md:h-10"
             />
           </span>
+
+          {/* Badge PWA — visible uniquement si installable */}
+          {isInstallable && (
+            <span className="hidden sm:inline-flex items-center gap-1 text-[10px] font-semibold tracking-wide bg-electric/15 text-electric-light px-2 py-0.5 rounded-full border border-electric/30 animate-fade-up">
+              <span className="w-1.5 h-1.5 rounded-full bg-electric animate-pulse" />
+              PWA
+            </span>
+          )}
         </Link>
 
         <nav className="hidden md:flex items-center gap-1.5 font-sans text-sm">
