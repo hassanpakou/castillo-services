@@ -9,6 +9,7 @@ type Translations = {
     home: string;
     services: string;
     portraits: string;
+    faq: string;
     about: string;
     contact: string;
   };
@@ -77,6 +78,7 @@ const translations: Record<Lang, Translations> = {
       home: "Accueil",
       services: "Services",
       portraits: "Portraits",
+      faq: "FAQ",
       about: "À Propos",
       contact: "Contact",
     },
@@ -86,7 +88,8 @@ const translations: Record<Lang, Translations> = {
       title1: "L'excellence ",
       titleGradient: "stratégique & technologique",
       title2: " au service de vos ambitions",
-      description: "De la transformation numérique de votre entreprise à la fourniture de produits manufacturés de haute qualité. Castillo Services est votre partenaire de confiance en République Démocratique du Congo.",
+      description:
+        "De la transformation numérique de votre entreprise à la fourniture de produits manufacturés de haute qualité. Castillo Services est votre partenaire de confiance en République Démocratique du Congo.",
       ctaPrimary: "Contactez-nous",
       ctaSecondary: "Explorer nos services",
       stats: [
@@ -115,9 +118,11 @@ const translations: Record<Lang, Translations> = {
       available: "Disponible",
       comingSoon: "Bientôt disponible",
       plates: "Plaques d'Immatriculation",
-      platesDesc: "Conformité totale aux standards réglementaires congolais, matériaux résistants aux intempéries et lisibilité optimale.",
+      platesDesc:
+        "Conformité totale aux standards réglementaires congolais, matériaux résistants aux intempéries et lisibilité optimale.",
       portraits: "Portraits Funéraires",
-      portraitsDesc: "Portraits en céramique personnalisés, inaltérables, pour honorer la mémoire de vos proches avec beauté et respect.",
+      portraitsDesc:
+        "Portraits en céramique personnalisés, inaltérables, pour honorer la mémoire de vos proches avec beauté et respect.",
       strategy: "Conseil en Stratégie",
       strategyDesc: "Audit et pilotage pour naviguer dans l'ère numérique.",
       digital: "Transformation Digitale",
@@ -126,7 +131,8 @@ const translations: Record<Lang, Translations> = {
     brand: {
       title1: "Castillo Services — ",
       titleGradient: "votre partenaire de confiance",
-      description: "Sérieux, rapidité et satisfaction client : une seule exigence, du conseil stratégique à la fabrication de précision, au cœur de Kinshasa et partout en RDC.",
+      description:
+        "Sérieux, rapidité et satisfaction client : une seule exigence, du conseil stratégique à la fabrication de précision, au cœur de Kinshasa et partout en RDC.",
     },
     cta: {
       title: "Prêt à transformer votre entreprise ?",
@@ -140,6 +146,7 @@ const translations: Record<Lang, Translations> = {
       home: "Home",
       services: "Services",
       portraits: "Portraits",
+      faq: "FAQ",
       about: "About",
       contact: "Contact",
     },
@@ -149,7 +156,8 @@ const translations: Record<Lang, Translations> = {
       title1: "Strategic & technological ",
       titleGradient: "excellence",
       title2: " at the service of your ambitions",
-      description: "From the digital transformation of your business to the supply of high-quality manufactured products. Castillo Services is your trusted partner in the Democratic Republic of Congo.",
+      description:
+        "From the digital transformation of your business to the supply of high-quality manufactured products. Castillo Services is your trusted partner in the Democratic Republic of Congo.",
       ctaPrimary: "Contact us",
       ctaSecondary: "Explore our services",
       stats: [
@@ -178,9 +186,11 @@ const translations: Record<Lang, Translations> = {
       available: "Available",
       comingSoon: "Coming soon",
       plates: "License Plates",
-      platesDesc: "Full compliance with Congolese regulatory standards, weather-resistant materials and optimal readability.",
+      platesDesc:
+        "Full compliance with Congolese regulatory standards, weather-resistant materials and optimal readability.",
       portraits: "Funeral Portraits",
-      portraitsDesc: "Custom ceramic portraits, unfading, to honor the memory of your loved ones with beauty and respect.",
+      portraitsDesc:
+        "Custom ceramic portraits, unfading, to honor the memory of your loved ones with beauty and respect.",
       strategy: "Strategic Consulting",
       strategyDesc: "Audit and steering to navigate the digital era.",
       digital: "Digital Transformation",
@@ -189,7 +199,8 @@ const translations: Record<Lang, Translations> = {
     brand: {
       title1: "Castillo Services — ",
       titleGradient: "your trusted partner",
-      description: "Seriousness, speed, and customer satisfaction: a single standard, from strategic consulting to precision manufacturing, in the heart of Kinshasa and throughout the DRC.",
+      description:
+        "Seriousness, speed, and customer satisfaction: a single standard, from strategic consulting to precision manufacturing, in the heart of Kinshasa and throughout the DRC.",
     },
     cta: {
       title: "Ready to transform your business?",

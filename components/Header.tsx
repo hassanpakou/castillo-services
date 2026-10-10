@@ -21,12 +21,13 @@ export default function Header() {
   }, []);
 
   const NAV_LINKS = [
-    { href: "/", label: t.nav.home },
-    { href: "/services", label: t.nav.services },
-    { href: "/portraits-funeraires", label: lang === "fr" ? "Portraits" : "Portraits" },
-    { href: "/a-propos", label: t.nav.about },
-    { href: "/contact", label: t.nav.contact },
-  ];
+  { href: "/", label: t.nav.home },
+  { href: "/services", label: t.nav.services },
+  { href: "/portraits-funeraires", label: lang === "fr" ? "Portraits" : "Portraits" },
+  { href: "/faq", label: lang === "fr" ? "FAQ" : "FAQ" },
+  { href: "/a-propos", label: t.nav.about },
+  { href: "/contact", label: t.nav.contact },
+];
 
   return (
     <header className="sticky top-0 z-50 glass border-b border-steel-light/10">

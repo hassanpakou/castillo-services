@@ -1,7 +1,6 @@
 "use client";
 
 import ContactForm from "@/components/ContactForm";
-import Faq from "@/components/Faq";
 import MapCard from "@/components/MapCard";
 import { useLang } from "@/context/LanguageContext";
 
@@ -19,7 +18,6 @@ const translations = {
     hours: "Heures d'Ouverture",
     hoursWeekdays: "Lundi – Vendredi : 8h30 – 16h30",
     hoursWeekend: "Samedi – Dimanche : Fermé",
-    faqTitle: "Questions Fréquentes",
     mapTitle: "Notre Localisation",
     mapSubtitle: "Retrouvez-nous au cœur de Kinshasa, dans le quartier d'affaires de la Gombe.",
   },
@@ -36,7 +34,6 @@ const translations = {
     hours: "Opening Hours",
     hoursWeekdays: "Monday – Friday: 8:30 AM – 4:30 PM",
     hoursWeekend: "Saturday – Sunday: Closed",
-    faqTitle: "Frequently Asked Questions",
     mapTitle: "Our Location",
     mapSubtitle: "Find us in the heart of Kinshasa, in the Gombe business district.",
   },
@@ -130,12 +127,6 @@ export default function ContactPage() {
 
         <MapCard />
       </section>
-
-      {/* FAQ */}
-      <div className="mt-20 border-t border-steel-light/10 pt-16 max-w-[70ch]">
-        <h2 className="font-display text-2xl text-ink mb-8">{t.faqTitle}</h2>
-        <Faq />
-      </div>
     </div>
   );
 }

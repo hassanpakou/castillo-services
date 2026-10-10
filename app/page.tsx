@@ -5,94 +5,106 @@ import Image from "next/image";
 import Reveal from "@/components/Reveal";
 import { useLang } from "@/context/LanguageContext";
 
-// Plaque fictive RDC en SVG
-function FictionalPlate() {
+// Plaque RDC reproduite en SVG — Armoiries.png réduites & répétées en fond
+// Plaque RDC reproduite en SVG — IDs préfixés pour pouvoir l'afficher plusieurs fois
+function FictionalPlate({ idPrefix = "hero" }: { idPrefix?: string }) {
+  const id = (name: string) => `${idPrefix}-${name}`;
+  const url = (name: string) => `url(#${idPrefix}-${name})`;
+
   return (
     <svg viewBox="0 0 560 170" className="w-full h-auto drop-shadow-2xl" aria-hidden="true">
       <defs>
         {/* Fond blanc métallisé */}
-        <linearGradient id="plateBase" x1="0%" y1="0%" x2="0%" y2="100%">
+        <linearGradient id={id("plateBase")} x1="0%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%" stopColor="#FDFEFE" />
           <stop offset="55%" stopColor="#EEF1F4" />
           <stop offset="100%" stopColor="#DDE2E8" />
         </linearGradient>
 
-        {/* Motif losanges en filigrane (sécurité) */}
-        <pattern id="diamonds" width="46" height="46" patternUnits="userSpaceOnUse">
-          <path d="M23 11 L35 23 L23 35 L11 23 Z" fill="none" stroke="#DCE2EA" strokeWidth="2" />
+        {/* Filtre : convertit les armoiries en gris */}
+        <filter id={id("grayscaleFilter")}>
+          <feColorMatrix
+            type="matrix"
+            values="0.33 0.33 0.33 0 0
+                    0.33 0.33 0.33 0 0
+                    0.33 0.33 0.33 0 0
+                    0    0    0    1 0"
+          />
+        </filter>
+
+        {/* Armoiries réduites & répétées en gris (quinconce) */}
+        <pattern id={id("armoiriesPattern")} width="90" height="90" patternUnits="userSpaceOnUse">
+          <image href="/Armoiries.png" x="6" y="6" width="38" height="38" opacity="0.22" filter={url("grayscaleFilter")} />
+          <image href="/Armoiries.png" x="51" y="51" width="38" height="38" opacity="0.22" filter={url("grayscaleFilter")} />
+        </pattern>
+
+        {/* Filigrane AUTHENTIC diagonal */}
+        <pattern
+          id={id("authenticPattern")}
+          width="70"
+          height="26"
+          patternUnits="userSpaceOnUse"
+          patternTransform="rotate(-50)"
+        >
+          <text x="0" y="9" fontFamily="Arial, Helvetica, sans-serif" fontSize="8" fontWeight="700" letterSpacing="1.5" fill="#FDFEFE" fillOpacity="0.92">
+            AUTHENTIC
+          </text>
+          <text x="35" y="22" fontFamily="Arial, Helvetica, sans-serif" fontSize="8" fontWeight="700" letterSpacing="1.5" fill="#FDFEFE" fillOpacity="0.92">
+            AUTHENTIC
+          </text>
         </pattern>
 
         {/* Reflet lumineux */}
-        <linearGradient id="plateShine" x1="0%" y1="0%" x2="100%" y2="0%">
+        <linearGradient id={id("plateShine")} x1="0%" y1="0%" x2="100%" y2="0%">
           <stop offset="0%" stopColor="white" stopOpacity="0" />
           <stop offset="50%" stopColor="white" stopOpacity="0.65" />
           <stop offset="100%" stopColor="white" stopOpacity="0" />
         </linearGradient>
 
         {/* Barre séparatrice grise */}
-        <linearGradient id="sepGray" x1="0%" y1="0%" x2="100%" y2="0%">
+        <linearGradient id={id("sepGray")} x1="0%" y1="0%" x2="100%" y2="0%">
           <stop offset="0%" stopColor="#C9D1DA" />
           <stop offset="50%" stopColor="#E8ECF1" />
           <stop offset="100%" stopColor="#C9D1DA" />
         </linearGradient>
 
         {/* Découpes */}
-        <clipPath id="plateClip">
+        <clipPath id={id("plateClip")}>
           <rect x="5" y="5" width="550" height="160" rx="12" />
         </clipPath>
-        <clipPath id="flagClip">
+        <clipPath id={id("flagClip")}>
           <rect x="22" y="20" width="70" height="48" rx="4" />
         </clipPath>
       </defs>
 
-      {/* ===== BORDURE NOIRE unique (plus de rouge) ===== */}
+      {/* BORDURE NOIRE */}
       <rect x="0" y="0" width="560" height="170" rx="16" fill="#0B0B0B" />
 
-      {/* ===== FOND blanc + losanges ===== */}
-      <rect x="5" y="5" width="550" height="160" rx="12" fill="url(#plateBase)" />
-      <rect x="5" y="5" width="550" height="160" rx="12" fill="url(#diamonds)" opacity="0.8" />
+      {/* FOND blanc métallisé */}
+      <rect x="5" y="5" width="550" height="160" rx="12" fill={url("plateBase")} />
 
-      {/* ===== ZONE GAUCHE : drapeau + série + COD + DataMatrix ===== */}
-      <g clipPath="url(#flagClip)">
-        {/* Ciel bleu */}
+      {/* FOND : armoiries grises répétées */}
+      <rect x="5" y="5" width="550" height="160" rx="12" fill={url("armoiriesPattern")} />
+
+      {/* ZONE GAUCHE : drapeau + série + COD + DataMatrix */}
+      <g clipPath={url("flagClip")}>
         <rect x="22" y="20" width="70" height="48" fill="#007FFF" />
-        {/* Bande diagonale jaune + rouge */}
         <line x1="22" y1="68" x2="92" y2="20" stroke="#F7D618" strokeWidth="16" />
         <line x1="22" y1="68" x2="92" y2="20" stroke="#CE1126" strokeWidth="9" />
-        {/* Étoile jaune */}
         <polygon
           points="38,25 40.2,30.9 46.6,31.2 41.6,35.2 43.3,41.3 38,37.8 32.7,41.3 34.4,35.2 29.4,31.2 35.8,30.9"
           fill="#F7D618"
         />
       </g>
 
-      {/* Numéro de série — NOIR maintenant */}
-      <text
-        x="22"
-        y="86"
-        fontFamily="var(--font-space-grotesk), Arial, sans-serif"
-        fontSize="11"
-        fontWeight="600"
-        fill="#101418"
-        letterSpacing="1.5"
-      >
-        0000000
+      <text x="22" y="86" fontFamily="var(--font-space-grotesk), Arial, sans-serif" fontSize="11" fontWeight="600" fill="#101418" letterSpacing="1.5">
+        0014717
       </text>
 
-      {/* COD */}
-      <text
-        x="22"
-        y="106"
-        fontFamily="var(--font-space-grotesk), Arial, sans-serif"
-        fontSize="19"
-        fontWeight="800"
-        fill="#101418"
-        letterSpacing="2"
-      >
+      <text x="22" y="106" fontFamily="var(--font-space-grotesk), Arial, sans-serif" fontSize="19" fontWeight="800" fill="#101418" letterSpacing="2">
         COD
       </text>
 
-      {/* DataMatrix (code sécurité) */}
       <g fill="#101418" transform="translate(22, 112)">
         <rect x="0" y="0" width="6" height="6" />
         <rect x="0" y="8" width="6" height="6" />
@@ -110,39 +122,29 @@ function FictionalPlate() {
         <rect x="24" y="16" width="6" height="6" />
       </g>
 
-      {/* ===== NUMÉRO PRINCIPAL ===== */}
-      <text
-        x="125"
-        y="118"
-        fontFamily="var(--font-space-grotesk), Arial, sans-serif"
-        fontSize="82"
-        fontWeight="800"
-        fill="#101418"
-        letterSpacing="2"
-      >
-        0000XI
+      {/* NUMÉRO PRINCIPAL : noir + filigrane AUTHENTIC */}
+      <text x="125" y="118" fontFamily="var(--font-space-grotesk), Arial, sans-serif" fontSize="82" fontWeight="800" fill="#101418" letterSpacing="2">
+        0000BI
+      </text>
+      <text x="125" y="118" fontFamily="var(--font-space-grotesk), Arial, sans-serif" fontSize="82" fontWeight="800" fill={url("authenticPattern")} letterSpacing="2">
+        0000BI
       </text>
 
-      {/* Barre séparatrice grise */}
-      <rect x="425" y="35" width="12" height="100" rx="6" fill="url(#sepGray)" />
+      {/* Barre séparatrice */}
+      <rect x="425" y="35" width="12" height="100" rx="6" fill={url("sepGray")} />
 
-      {/* Année / province */}
-      <text
-        x="450"
-        y="118"
-        fontFamily="var(--font-space-grotesk), Arial, sans-serif"
-        fontSize="82"
-        fontWeight="800"
-        fill="#101418"
-        letterSpacing="2"
-      >
+      {/* ANNÉE : noir + filigrane AUTHENTIC */}
+      <text x="450" y="118" fontFamily="var(--font-space-grotesk), Arial, sans-serif" fontSize="82" fontWeight="800" fill="#101418" letterSpacing="2">
+        00
+      </text>
+      <text x="450" y="118" fontFamily="var(--font-space-grotesk), Arial, sans-serif" fontSize="82" fontWeight="800" fill={url("authenticPattern")} letterSpacing="2">
         00
       </text>
 
-      {/* ===== REFLET ANIMÉ qui traverse la plaque ===== */}
-      <g clipPath="url(#plateClip)">
+      {/* REFLET ANIMÉ */}
+      <g clipPath={url("plateClip")}>
         <g className="animate-plate-shine">
-          <rect x="0" y="0" width="130" height="170" fill="url(#plateShine)" />
+          <rect x="0" y="0" width="130" height="170" fill={url("plateShine")} />
         </g>
       </g>
     </svg>
@@ -380,26 +382,30 @@ export default function HomePage() {
       </section>
 
       {/* ===== MARQUE ===== */}
-      <section className="relative py-16 md:py-24 overflow-hidden border-y border-steel-light/10 bg-navy-dark">
-        <div className="absolute inset-0 grid-bg" aria-hidden="true" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-electric/15 blur-[120px] animate-pulse-slow" aria-hidden="true" />
-        <Reveal className="relative flex flex-col items-center text-center px-6">
-          <span className="bg-white rounded-2xl p-4 shadow-glow animate-float">
-            <Image
-              src="/castillo.png"
-              alt="Castillo Services"
-              width={200}
-              height={200}
-              className="h-20 w-auto md:h-28"
-            />
-          </span>
-          <h2 className="mt-8 font-display text-3xl md:text-4xl font-bold text-white">
-            {t.brand.title1}<span className="text-gradient">{t.brand.titleGradient}</span>
-          </h2>
-          <p className="mt-4 text-white/70 max-w-[52ch] leading-relaxed">{t.brand.description}</p>
-        </Reveal>
-      </section>
+<section className="relative py-16 md:py-24 overflow-hidden border-y border-steel-light/10 bg-navy-dark">
+  <div className="absolute inset-0 grid-bg" aria-hidden="true" />
+  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-electric/15 blur-[120px] animate-pulse-slow" aria-hidden="true" />
 
+  <Reveal className="relative flex flex-col items-center text-center px-6">
+    {/* ===== PLAQUE RDC FLOTTANTE ===== */}
+    <div className="relative w-full max-w-sm md:max-w-md" style={{ perspective: "1000px" }}>
+      {/* Halo lumineux derrière la plaque */}
+      <div className="absolute -inset-10 bg-electric/25 blur-[90px] rounded-full animate-pulse-slow" aria-hidden="true" />
+
+      {/* Plaque avec animation 3D */}
+      <div className="relative animate-float-3d">
+        <div className="rounded-2xl p-4 md:p-5 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-md ring-1 ring-white/20 shadow-2xl">
+          <FictionalPlate idPrefix="brand" />
+        </div>
+      </div>
+    </div>
+
+    <h2 className="mt-12 font-display text-3xl md:text-4xl font-bold text-white">
+      {t.brand.title1}<span className="text-gradient">{t.brand.titleGradient}</span>
+    </h2>
+    <p className="mt-4 text-white/70 max-w-[52ch] leading-relaxed">{t.brand.description}</p>
+  </Reveal>
+</section>
       {/* ===== CTA ===== */}
       <section className="max-w-content mx-auto px-6 md:px-10 py-24">
         <Reveal>

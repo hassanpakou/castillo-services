@@ -7,20 +7,20 @@ const SUPPORT_NUMBERS = [
   {
     number: "243803748393",
     display: "+243 803 748 393",
-    labelFr: "Support Principal",
-    labelEn: "Main Support",
+    labelFr: "Support Première ligne",
+    labelEn: "First-line support",
   },
   {
     number: "243820113095",
     display: "+243 820 113 095",
-    labelFr: "Support Commercial",
-    labelEn: "Sales Support",
+    labelFr: "Support 2",
+    labelEn: "Two Support",
   },
   {
     number: "243821469174",
     display: "+243 821 469 174",
-    labelFr: "Support Technique",
-    labelEn: "Technical Support",
+    labelFr: "Support 3",
+    labelEn: "Three Support",
   },
 ];
 
