@@ -170,3 +170,57 @@ body {
 }
 .underline-grow:hover,
 .underline-grow:focus-visible { background-size: 100% 1.5px; }
+
+/* ============ NOUVELLES ANIMATIONS POUR LE HERO ============ */
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+.animate-gradient-shift {
+  background-size: 200% 200%;
+  animation: gradientShift 8s ease-in-out infinite;
+}
+
+@keyframes float3D {
+  0%, 100% {
+    transform: translateY(0) rotateY(-8deg) rotateX(3deg);
+  }
+  50% {
+    transform: translateY(-16px) rotateY(8deg) rotateX(-3deg);
+  }
+}
+.animate-float-3d {
+  animation: float3D 6s ease-in-out infinite;
+  transform-style: preserve-3d;
+}
+
+@keyframes shineSlide {
+  0% { transform: translateX(-100%) skewX(-15deg); }
+  100% { transform: translateX(200%) skewX(-15deg); }
+}
+.animate-shine {
+  animation: shineSlide 4s ease-in-out infinite;
+}
+
+@keyframes orbit {
+  0% { transform: rotate(0deg) translateX(120px) rotate(0deg); }
+  100% { transform: rotate(360deg) translateX(120px) rotate(-360deg); }
+}
+.animate-orbit {
+  animation: orbit 20s linear infinite;
+}
+
+/* Brillance qui traverse la plaque RDC */
+@keyframes plateShineMove {
+  0%   { transform: translateX(-180px) skewX(-12deg); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { transform: translateX(640px) skewX(-12deg); opacity: 0; }
+}
+.animate-plate-shine {
+  animation: plateShineMove 5s ease-in-out infinite;
+}

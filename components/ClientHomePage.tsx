@@ -20,7 +20,7 @@ export default function ClientHomePage() {
           <div>
             <span className="animate-fade-up inline-flex items-center gap-2 text-[11px] tracking-widest uppercase text-electric-light border border-electric/40 bg-electric/10 rounded-full px-4 py-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-electric animate-pulse" />
-              {t.hero.badge}
+              {/* {t.hero.badge} */}
             </span>
             <h1
               className="animate-fade-up mt-6 font-display font-bold text-4xl leading-[1.08] md:text-[3.5rem] md:leading-[1.05]"

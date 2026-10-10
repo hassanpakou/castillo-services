@@ -5,31 +5,221 @@ import Image from "next/image";
 import Reveal from "@/components/Reveal";
 import { useLang } from "@/context/LanguageContext";
 
+// Plaque fictive RDC en SVG
+function FictionalPlate() {
+  return (
+    <svg viewBox="0 0 560 170" className="w-full h-auto drop-shadow-2xl" aria-hidden="true">
+      <defs>
+        {/* Fond blanc métallisé */}
+        <linearGradient id="plateBase" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stopColor="#FDFEFE" />
+          <stop offset="55%" stopColor="#EEF1F4" />
+          <stop offset="100%" stopColor="#DDE2E8" />
+        </linearGradient>
+
+        {/* Motif losanges en filigrane (sécurité) */}
+        <pattern id="diamonds" width="46" height="46" patternUnits="userSpaceOnUse">
+          <path d="M23 11 L35 23 L23 35 L11 23 Z" fill="none" stroke="#DCE2EA" strokeWidth="2" />
+        </pattern>
+
+        {/* Reflet lumineux */}
+        <linearGradient id="plateShine" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="white" stopOpacity="0" />
+          <stop offset="50%" stopColor="white" stopOpacity="0.65" />
+          <stop offset="100%" stopColor="white" stopOpacity="0" />
+        </linearGradient>
+
+        {/* Barre séparatrice grise */}
+        <linearGradient id="sepGray" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#C9D1DA" />
+          <stop offset="50%" stopColor="#E8ECF1" />
+          <stop offset="100%" stopColor="#C9D1DA" />
+        </linearGradient>
+
+        {/* Découpes */}
+        <clipPath id="plateClip">
+          <rect x="5" y="5" width="550" height="160" rx="12" />
+        </clipPath>
+        <clipPath id="flagClip">
+          <rect x="22" y="20" width="70" height="48" rx="4" />
+        </clipPath>
+      </defs>
+
+      {/* ===== BORDURE NOIRE unique (plus de rouge) ===== */}
+      <rect x="0" y="0" width="560" height="170" rx="16" fill="#0B0B0B" />
+
+      {/* ===== FOND blanc + losanges ===== */}
+      <rect x="5" y="5" width="550" height="160" rx="12" fill="url(#plateBase)" />
+      <rect x="5" y="5" width="550" height="160" rx="12" fill="url(#diamonds)" opacity="0.8" />
+
+      {/* ===== ZONE GAUCHE : drapeau + série + COD + DataMatrix ===== */}
+      <g clipPath="url(#flagClip)">
+        {/* Ciel bleu */}
+        <rect x="22" y="20" width="70" height="48" fill="#007FFF" />
+        {/* Bande diagonale jaune + rouge */}
+        <line x1="22" y1="68" x2="92" y2="20" stroke="#F7D618" strokeWidth="16" />
+        <line x1="22" y1="68" x2="92" y2="20" stroke="#CE1126" strokeWidth="9" />
+        {/* Étoile jaune */}
+        <polygon
+          points="38,25 40.2,30.9 46.6,31.2 41.6,35.2 43.3,41.3 38,37.8 32.7,41.3 34.4,35.2 29.4,31.2 35.8,30.9"
+          fill="#F7D618"
+        />
+      </g>
+
+      {/* Numéro de série — NOIR maintenant */}
+      <text
+        x="22"
+        y="86"
+        fontFamily="var(--font-space-grotesk), Arial, sans-serif"
+        fontSize="11"
+        fontWeight="600"
+        fill="#101418"
+        letterSpacing="1.5"
+      >
+        0000000
+      </text>
+
+      {/* COD */}
+      <text
+        x="22"
+        y="106"
+        fontFamily="var(--font-space-grotesk), Arial, sans-serif"
+        fontSize="19"
+        fontWeight="800"
+        fill="#101418"
+        letterSpacing="2"
+      >
+        COD
+      </text>
+
+      {/* DataMatrix (code sécurité) */}
+      <g fill="#101418" transform="translate(22, 112)">
+        <rect x="0" y="0" width="6" height="6" />
+        <rect x="0" y="8" width="6" height="6" />
+        <rect x="0" y="16" width="6" height="6" />
+        <rect x="0" y="24" width="6" height="6" />
+        <rect x="8" y="24" width="6" height="6" />
+        <rect x="16" y="24" width="6" height="6" />
+        <rect x="24" y="24" width="6" height="6" />
+        <rect x="32" y="24" width="6" height="6" />
+        <rect x="8" y="0" width="6" height="6" />
+        <rect x="24" y="0" width="6" height="6" />
+        <rect x="16" y="8" width="6" height="6" />
+        <rect x="32" y="8" width="6" height="6" />
+        <rect x="8" y="16" width="6" height="6" />
+        <rect x="24" y="16" width="6" height="6" />
+      </g>
+
+      {/* ===== NUMÉRO PRINCIPAL ===== */}
+      <text
+        x="125"
+        y="118"
+        fontFamily="var(--font-space-grotesk), Arial, sans-serif"
+        fontSize="82"
+        fontWeight="800"
+        fill="#101418"
+        letterSpacing="2"
+      >
+        0000XI
+      </text>
+
+      {/* Barre séparatrice grise */}
+      <rect x="425" y="35" width="12" height="100" rx="6" fill="url(#sepGray)" />
+
+      {/* Année / province */}
+      <text
+        x="450"
+        y="118"
+        fontFamily="var(--font-space-grotesk), Arial, sans-serif"
+        fontSize="82"
+        fontWeight="800"
+        fill="#101418"
+        letterSpacing="2"
+      >
+        00
+      </text>
+
+      {/* ===== REFLET ANIMÉ qui traverse la plaque ===== */}
+      <g clipPath="url(#plateClip)">
+        <g className="animate-plate-shine">
+          <rect x="0" y="0" width="130" height="170" fill="url(#plateShine)" />
+        </g>
+      </g>
+    </svg>
+  );
+}
+
 export default function HomePage() {
   const { t } = useLang();
 
   return (
     <>
-      {/* ===== HERO ===== */}
-      <section className="relative overflow-hidden bg-navy-dark">
-        <div className="absolute inset-0 grid-bg" aria-hidden="true" />
-        <div className="absolute -top-32 -right-24 w-[480px] h-[480px] rounded-full bg-electric/25 blur-[130px] animate-pulse-slow" aria-hidden="true" />
-        <div className="absolute -bottom-40 -left-24 w-[380px] h-[380px] rounded-full bg-cyan/15 blur-[110px]" aria-hidden="true" />
+      {/* ===== HERO IMMERSIF ===== */}
+      <section className="relative overflow-hidden min-h-[90vh] flex items-center">
+        {/* Image de fond pleine largeur */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/PlaqueRdc.png"
+            alt=""
+            fill
+            priority
+            className="object-cover scale-110"
+            quality={90}
+          />
+          {/* Overlay sombre pour lisibilité */}
+          <div className="absolute inset-0 bg-gradient-to-br from-navy-dark/95 via-navy-dark/85 to-navy-dark/70" />
+        </div>
 
-        <div className="relative max-w-content mx-auto px-6 md:px-10 pt-20 pb-24 md:pt-28 md:pb-28 grid md:grid-cols-[1.1fr_0.9fr] gap-14 items-center">
+        {/* Dégradé animé qui pulse par-dessus */}
+        <div
+          className="absolute inset-0 z-[1] opacity-60 animate-gradient-shift"
+          style={{
+            background:
+              "linear-gradient(120deg, rgba(37, 99, 235, 0.35) 0%, rgba(6, 182, 212, 0.25) 25%, rgba(18, 59, 122, 0.3) 50%, rgba(34, 211, 238, 0.2) 75%, rgba(59, 130, 246, 0.35) 100%)",
+          }}
+          aria-hidden="true"
+        />
+
+        {/* Grille technique subtile */}
+        <div className="absolute inset-0 z-[2] grid-bg opacity-40" aria-hidden="true" />
+
+        {/* Orbes flottantes en orbite */}
+        <div className="absolute top-1/4 left-1/2 z-[2]" aria-hidden="true">
+          <div className="relative w-0 h-0">
+            <div className="absolute animate-orbit">
+              <div className="w-3 h-3 rounded-full bg-electric blur-sm" />
+            </div>
+            <div className="absolute animate-orbit" style={{ animationDelay: "-7s", animationDuration: "25s" }}>
+              <div className="w-2 h-2 rounded-full bg-cyan blur-sm" />
+            </div>
+            <div className="absolute animate-orbit" style={{ animationDelay: "-14s", animationDuration: "30s" }}>
+              <div className="w-4 h-4 rounded-full bg-electric-light blur-sm" />
+            </div>
+          </div>
+        </div>
+
+        {/* Halos lumineux */}
+        <div className="absolute -top-32 -right-24 w-[600px] h-[600px] rounded-full bg-electric/30 blur-[150px] z-[1] animate-pulse-slow" aria-hidden="true" />
+        <div className="absolute -bottom-40 -left-24 w-[500px] h-[500px] rounded-full bg-cyan/20 blur-[130px] z-[1]" aria-hidden="true" />
+
+        {/* Contenu principal */}
+        <div className="relative z-10 max-w-content mx-auto px-6 md:px-10 pt-20 pb-24 grid md:grid-cols-[1.1fr_0.9fr] gap-14 items-center w-full">
+          {/* Colonne gauche : texte */}
           <div>
-            <span className="animate-fade-up inline-flex items-center gap-2 text-[11px] tracking-widest uppercase text-electric-light border border-electric/40 bg-electric/10 rounded-full px-4 py-1.5">
+            <span className="animate-fade-up inline-flex items-center gap-2 text-[11px] tracking-widest uppercase text-electric-light border border-electric/40 bg-electric/10 backdrop-blur-sm rounded-full px-4 py-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-electric animate-pulse" />
-              {t.hero.badge}
+              {/* {t.hero.badge} */}
             </span>
             <h1
-              className="animate-fade-up mt-6 font-display font-bold text-4xl leading-[1.08] md:text-[3.5rem] md:leading-[1.05] text-white"
+              className="animate-fade-up mt-6 font-display font-bold text-4xl leading-[1.05] md:text-[3.8rem] md:leading-[1.02] text-white"
               style={{ animationDelay: "100ms" }}
             >
-              {t.hero.title1}<span className="text-gradient">{t.hero.titleGradient}</span>{t.hero.title2}
+              {t.hero.title1}
+              <span className="text-gradient">{t.hero.titleGradient}</span>
+              {t.hero.title2}
             </h1>
             <p
-              className="animate-fade-up mt-6 text-white/70 text-lg max-w-[48ch] leading-relaxed"
+              className="animate-fade-up mt-6 text-white/80 text-lg max-w-[48ch] leading-relaxed"
               style={{ animationDelay: "200ms" }}
             >
               {t.hero.description}
@@ -43,36 +233,34 @@ export default function HomePage() {
               </Link>
               <Link
                 href="/services"
-                className="px-7 py-3.5 rounded-full border border-white/20 text-white/80 hover:bg-white/10 hover:text-white transition-all duration-300"
+                className="px-7 py-3.5 rounded-full border border-white/30 backdrop-blur-sm text-white hover:bg-white/10 hover:text-white hover:border-white/60 transition-all duration-300"
               >
                 {t.hero.ctaSecondary}
               </Link>
             </div>
             <dl className="animate-fade-up mt-12 grid grid-cols-3 gap-6 max-w-md" style={{ animationDelay: "400ms" }}>
               {t.hero.stats.map((s) => (
-                <div key={s.label}>
+                <div key={s.label} className="border-l-2 border-electric pl-3">
                   <dt className="font-display text-2xl font-bold text-white">{s.value}</dt>
-                  <dd className="mt-1 text-xs text-white/50">{s.label}</dd>
+                  <dd className="mt-1 text-xs text-white/60 uppercase tracking-wide">{s.label}</dd>
                 </div>
               ))}
             </dl>
           </div>
 
-          {/* Photo + Avatar + Logo */}
-          <div className="relative animate-fade-up" style={{ animationDelay: "250ms" }}>
-            <div className="absolute -inset-6 rounded-[2rem] bg-electric/20 blur-[80px] animate-pulse-slow" aria-hidden="true" />
-            <div className="relative rounded-[2rem] overflow-hidden ring-1 ring-white/10 shadow-2xl animate-float">
-              <Image
-                src="/PlaqueRdc.png"
-                alt="Plaque d'immatriculation RDC — Castillo Services"
-                width={800}
-                height={900}
-                priority
-                className="w-full h-[420px] md:h-[500px] object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-navy-dark/90 via-navy-dark/20 to-transparent" aria-hidden="true" />
+          {/* Colonne droite : plaque fictive flottante */}
+          <div className="relative animate-fade-up" style={{ animationDelay: "250ms", perspective: "1000px" }}>
+            {/* Halo derrière la plaque */}
+            <div className="absolute inset-0 bg-electric/30 blur-[100px] rounded-full animate-pulse-slow" aria-hidden="true" />
 
-              <div className="absolute bottom-5 left-5 right-5 flex items-center gap-3 rounded-2xl bg-navy-dark/60 backdrop-blur-md ring-1 ring-white/10 px-4 py-3">
+            {/* Plaque fictive avec animation 3D */}
+            <div className="relative animate-float-3d">
+              <div className="relative rounded-2xl p-6 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-md ring-1 ring-white/20 shadow-2xl">
+                <FictionalPlate />
+              </div>
+
+              {/* Carte flottante en dessous de la plaque */}
+              <div className="absolute -bottom-6 left-6 right-6 flex items-center gap-3 rounded-2xl bg-navy-dark/80 backdrop-blur-xl ring-1 ring-white/15 px-4 py-3 shadow-2xl">
                 <Image
                   src="/catillo-valere.png"
                   alt="Castillo Valere"
@@ -80,22 +268,29 @@ export default function HomePage() {
                   height={96}
                   className="h-12 w-12 rounded-full object-cover ring-2 ring-electric shrink-0"
                 />
-                <div className="min-w-0">
-                  <p className="text-white font-display font-semibold truncate">Castillo Valere</p>
+                <div className="min-w-0 flex-1">
+                  <p className="text-white font-display font-semibold text-sm truncate">Castillo Valere</p>
                   <p className="text-white/60 text-xs truncate">{t.hero.personRole}</p>
                 </div>
-                <span className="ml-auto bg-white rounded-xl p-1.5 shadow-glow-sm shrink-0">
+                <span className="bg-white rounded-xl p-1.5 shadow-glow-sm shrink-0">
                   <Image
                     src="/castillo.png"
                     alt="Logo Castillo Services"
                     width={200}
                     height={200}
-                    className="h-8 w-auto md:h-9"
+                    className="h-7 w-auto"
                   />
                 </span>
               </div>
             </div>
           </div>
+        </div>
+
+        {/* Flèche de scroll en bas */}
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 animate-bounce">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-white/50" aria-hidden="true">
+            <path d="M12 5v14m0 0l-6-6m6 6l6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
         </div>
       </section>
 
