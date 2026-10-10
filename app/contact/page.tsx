@@ -2,6 +2,7 @@
 
 import ContactForm from "@/components/ContactForm";
 import Faq from "@/components/Faq";
+import MapCard from "@/components/MapCard";
 import { useLang } from "@/context/LanguageContext";
 
 const translations = {
@@ -19,6 +20,8 @@ const translations = {
     hoursWeekdays: "Lundi – Vendredi : 8h30 – 16h30",
     hoursWeekend: "Samedi – Dimanche : Fermé",
     faqTitle: "Questions Fréquentes",
+    mapTitle: "Notre Localisation",
+    mapSubtitle: "Retrouvez-nous au cœur de Kinshasa, dans le quartier d'affaires de la Gombe.",
   },
   en: {
     title: "Get in Touch",
@@ -34,6 +37,8 @@ const translations = {
     hoursWeekdays: "Monday – Friday: 8:30 AM – 4:30 PM",
     hoursWeekend: "Saturday – Sunday: Closed",
     faqTitle: "Frequently Asked Questions",
+    mapTitle: "Our Location",
+    mapSubtitle: "Find us in the heart of Kinshasa, in the Gombe business district.",
   },
 };
 
@@ -68,6 +73,11 @@ export default function ContactPage() {
               <dd className="mt-1">
                 <a href="mailto:contact@castilloservice.com" className="underline-grow text-ink">
                   contact@castilloservice.com
+                </a>
+              </dd>
+              <dd className="mt-1">
+                <a href="mailto:banasupport@castilloservice.com" className="underline-grow text-ink">
+                  banasupport@castilloservice.com
                 </a>
               </dd>
             </div>
@@ -107,6 +117,21 @@ export default function ContactPage() {
         </div>
       </div>
 
+      {/* ===== CARTE GOOGLE MAPS ===== */}
+      <section className="mt-20">
+        <div className="mb-8">
+          <h2 className="font-display text-2xl md:text-3xl font-bold text-ink">
+            {t.mapTitle}
+          </h2>
+          <p className="mt-2 text-steel max-w-[52ch]">
+            {t.mapSubtitle}
+          </p>
+        </div>
+
+        <MapCard />
+      </section>
+
+      {/* FAQ */}
       <div className="mt-20 border-t border-steel-light/10 pt-16 max-w-[70ch]">
         <h2 className="font-display text-2xl text-ink mb-8">{t.faqTitle}</h2>
         <Faq />

@@ -14,6 +14,7 @@ const translations = {
     nav: {
       home: "Accueil",
       services: "Services",
+      portraits: "Portraits",
       about: "À Propos",
       contact: "Contact",
     },
@@ -48,6 +49,7 @@ const translations = {
     nav: {
       home: "Home",
       services: "Services",
+      portraits: "Portraits",
       about: "About",
       contact: "Contact",
     },
@@ -105,6 +107,8 @@ export default function Footer() {
           <ul className="space-y-2 text-sm text-white/70">
             <li><Link href="/" className="inline-block hover:text-white hover:translate-x-1 transition-all">{t.nav.home}</Link></li>
             <li><Link href="/services" className="inline-block hover:text-white hover:translate-x-1 transition-all">{t.nav.services}</Link></li>
+            {/* ✅ NOUVEAU : Lien vers la page Portraits dédiée */}
+            <li><Link href="/portraits-funeraires" className="inline-block hover:text-white hover:translate-x-1 transition-all">{t.nav.portraits}</Link></li>
             <li><Link href="/a-propos" className="inline-block hover:text-white hover:translate-x-1 transition-all">{t.nav.about}</Link></li>
             <li><Link href="/contact" className="inline-block hover:text-white hover:translate-x-1 transition-all">{t.nav.contact}</Link></li>
           </ul>
@@ -114,7 +118,8 @@ export default function Footer() {
           <h3 className="text-xs tracking-widest uppercase text-electric-light mb-4">{t.services}</h3>
           <ul className="space-y-2 text-sm text-white/70">
             <li><Link href="/services#plaques" className="inline-block hover:text-white hover:translate-x-1 transition-all">{t.serviceLinks.plates}</Link></li>
-            <li><Link href="/services#portraits" className="inline-block hover:text-white hover:translate-x-1 transition-all">{t.serviceLinks.portraits}</Link></li>
+            {/* ✅ MODIFIÉ : pointe vers la page dédiée au lieu d'une ancre */}
+            <li><Link href="/portraits-funeraires" className="inline-block hover:text-white hover:translate-x-1 transition-all">{t.serviceLinks.portraits}</Link></li>
             <li><Link href="/services#conseil" className="inline-block hover:text-white hover:translate-x-1 transition-all">{t.serviceLinks.strategy}</Link></li>
             <li><Link href="/services#digital" className="inline-block hover:text-white hover:translate-x-1 transition-all">{t.serviceLinks.digital}</Link></li>
           </ul>

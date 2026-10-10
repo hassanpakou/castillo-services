@@ -8,6 +8,7 @@ type Translations = {
   nav: {
     home: string;
     services: string;
+    portraits: string;
     about: string;
     contact: string;
   };
@@ -75,12 +76,11 @@ const translations: Record<Lang, Translations> = {
     nav: {
       home: "Accueil",
       services: "Services",
+      portraits: "Portraits",
       about: "À Propos",
       contact: "Contact",
     },
-    header: {
-      cta: "Contactez-nous",
-    },
+    header: { cta: "Contactez-nous" },
     hero: {
       badge: "Kinshasa · RDC — Conseil & Fabrication",
       title1: "L'excellence ",
@@ -132,24 +132,18 @@ const translations: Record<Lang, Translations> = {
       title: "Prêt à transformer votre entreprise ?",
       button: "Commençons une conversation",
     },
-    theme: {
-      light: "Thème clair",
-      dark: "Thème sombre",
-    },
-    lang: {
-      switch: "EN",
-    },
+    theme: { light: "Thème clair", dark: "Thème sombre" },
+    lang: { switch: "EN" },
   },
   en: {
     nav: {
       home: "Home",
       services: "Services",
+      portraits: "Portraits",
       about: "About",
       contact: "Contact",
     },
-    header: {
-      cta: "Contact us",
-    },
+    header: { cta: "Contact us" },
     hero: {
       badge: "Kinshasa · DRC — Consulting & Manufacturing",
       title1: "Strategic & technological ",
@@ -201,13 +195,8 @@ const translations: Record<Lang, Translations> = {
       title: "Ready to transform your business?",
       button: "Let's start a conversation",
     },
-    theme: {
-      light: "Light theme",
-      dark: "Dark theme",
-    },
-    lang: {
-      switch: "FR",
-    },
+    theme: { light: "Light theme", dark: "Dark theme" },
+    lang: { switch: "FR" },
   },
 };
 

@@ -12,8 +12,7 @@ export default function Header() {
   const [open, setOpen] = useState(false);
   const [isInstallable, setIsInstallable] = useState(false);
   const pathname = usePathname();
-  const { t } = useLang();
-
+  const { t, lang } = useLang();
   // Hook pour détecter si le site est installable (PWA)
   useEffect(() => {
     const handler = () => setIsInstallable(true);
@@ -24,6 +23,7 @@ export default function Header() {
   const NAV_LINKS = [
     { href: "/", label: t.nav.home },
     { href: "/services", label: t.nav.services },
+    { href: "/portraits-funeraires", label: lang === "fr" ? "Portraits" : "Portraits" },
     { href: "/a-propos", label: t.nav.about },
     { href: "/contact", label: t.nav.contact },
   ];

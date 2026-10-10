@@ -9,6 +9,14 @@ const translations = {
     emailLabel: "Adresse e-mail",
     subjectLabel: "Sujet",
     messageLabel: "Message",
+    categoryLabel: "Vous êtes",
+    categories: {
+      individual: "Particulier",
+      company: "Entreprise",
+      public: "Administration publique",
+      ngo: "ONG / Association",
+      other: "Autre",
+    },
     submitButton: "Envoyer le message",
     submittingButton: "Envoi en cours...",
     successTitle: "Message envoyé !",
@@ -19,6 +27,14 @@ const translations = {
     emailLabel: "Email address",
     subjectLabel: "Subject",
     messageLabel: "Message",
+    categoryLabel: "You are",
+    categories: {
+      individual: "Individual",
+      company: "Company",
+      public: "Public administration",
+      ngo: "NGO / Association",
+      other: "Other",
+    },
     submitButton: "Send message",
     submittingButton: "Sending...",
     successTitle: "Message sent!",
@@ -26,8 +42,17 @@ const translations = {
   },
 };
 
+const CATEGORIES = [
+  { value: "individual", icon: "👤" },
+  { value: "company", icon: "🏢" },
+  { value: "public", icon: "🏛️" },
+  { value: "ngo", icon: "🤝" },
+  { value: "other", icon: "✨" },
+];
+
 export default function ContactForm() {
   const [status, setStatus] = useState<"idle" | "submitting" | "success">("idle");
+  const [selectedCategory, setSelectedCategory] = useState<string>("individual");
   const { lang } = useLang();
   const t = translations[lang];
 
@@ -51,6 +76,36 @@ export default function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
+      {/* Champ catégorie - sélection visuelle */}
+      <div>
+        <label className="block text-xs font-medium text-ink mb-3 tracking-wide">
+          {t.categoryLabel}
+        </label>
+        <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
+          {CATEGORIES.map((cat) => {
+            const isSelected = selectedCategory === cat.value;
+            const labelKey = cat.value as keyof typeof t.categories;
+            return (
+              <button
+                key={cat.value}
+                type="button"
+                onClick={() => setSelectedCategory(cat.value)}
+                className={`flex flex-col items-center gap-1.5 p-3 rounded-xl border-2 transition-all duration-300 ${
+                  isSelected
+                    ? "bg-electric/15 border-electric text-electric shadow-glow-sm"
+                    : "bg-porcelain border-steel-light/20 text-steel hover:border-electric/50 hover:text-ink"
+                }`}
+              >
+                <span className="text-xl" aria-hidden="true">{cat.icon}</span>
+                <span className="text-[11px] font-medium leading-tight text-center">
+                  {t.categories[labelKey]}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
       <div className="grid sm:grid-cols-2 gap-6">
         <div>
           <label htmlFor="name" className="block text-xs font-medium text-ink mb-2 tracking-wide">
@@ -59,6 +114,7 @@ export default function ContactForm() {
           <input
             type="text"
             id="name"
+            name="name"
             required
             className="w-full px-4 py-3 bg-porcelain border border-steel-light/20 text-ink text-sm focus:outline-none focus:border-electric transition-colors rounded-lg"
           />
@@ -70,6 +126,7 @@ export default function ContactForm() {
           <input
             type="email"
             id="email"
+            name="email"
             required
             className="w-full px-4 py-3 bg-porcelain border border-steel-light/20 text-ink text-sm focus:outline-none focus:border-electric transition-colors rounded-lg"
           />
@@ -83,6 +140,7 @@ export default function ContactForm() {
         <input
           type="text"
           id="subject"
+          name="subject"
           required
           className="w-full px-4 py-3 bg-porcelain border border-steel-light/20 text-ink text-sm focus:outline-none focus:border-electric transition-colors rounded-lg"
         />
@@ -94,11 +152,15 @@ export default function ContactForm() {
         </label>
         <textarea
           id="message"
+          name="message"
           rows={5}
           required
           className="w-full px-4 py-3 bg-porcelain border border-steel-light/20 text-ink text-sm focus:outline-none focus:border-electric transition-colors resize-none rounded-lg"
         />
       </div>
+
+      {/* Champ caché pour la catégorie */}
+      <input type="hidden" name="category" value={selectedCategory} />
 
       <button
         type="submit"

@@ -6,6 +6,8 @@ import Footer from "@/components/Footer";
 import Providers from "@/components/Providers";
 import InstallPrompt from "@/components/InstallPrompt";
 import SplashScreen from "@/components/SplashScreen";
+import WhatsAppButton from "@/components/WhatsAppButton";
+import EmailButton from "@/components/EmailButton";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -44,6 +46,8 @@ export default function RootLayout({
           <main>{children}</main>
           <Footer />
           <InstallPrompt />
+          <EmailButton />
+          <WhatsAppButton />
         </Providers>
       </body>
     </html>
